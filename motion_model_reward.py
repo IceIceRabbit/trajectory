@@ -32,8 +32,9 @@ theta2 = math.pi/2
 action_space = [-math.pi/4,-math.pi/6,0,math.pi/6,math.pi/4] #set of possible action defined for [FOR TESTING]
 
 def distance_from_collision(A1,A2):
-    la.norm(A1 - A2)
-    
+    ans = la.norm(A1 - A2)
+    return ans
+
 def col_reward(X1,X2,Y1,Y2): #old reward function
     reward = (1/(la.norm(np.array([X1,Y1]) - np.array([X2,Y2])))) * (math.pow((X1 - X2),2) + math.pow((X1 - X2),2) - math.pow((r1 + r2 + epsilon),2))
     return reward
@@ -61,11 +62,12 @@ def step(action,timestep):
     y2.append(y2_in + ((v2/10)*timestep + a2*(math.pow(timestep,2)))*math.sin(theta2))
     timestep += 1
     done = False
+
     if distance_to_goal(x1[timestep-1],y1[timestep-1]) == 0:
         done = True
-    return [x1[timestep-1],y1[timestep - 1]] , reward( x1[timestep-1] , y1[timestep-1] , distance_from_collision(np.array([x1[timestep-1],y1[timestep-1]]),np.array([x2[timestep-1],y2[timestep-1]]))), done,timestep
+    return [x1[timestep-1],y1[timestep - 1]] , reward( x1[timestep-1] , y1[timestep-1] ,distance_from_collision(np.array([x1[timestep-1],y1[timestep-1]]),np.array([x2[timestep-1],y2[timestep-1]]))), done,timestep
 
-def plot():
+def plots():
     plt.plot(x1,y1)
     plt.plot(x2,y2,'ro')
     plt.show()

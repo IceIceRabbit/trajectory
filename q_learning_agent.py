@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
     for episode in range(1000):
         state = [mmr.x1_in,mmr.y1_in]
-        timestep = 1
+        timestep = 0
         while True:
 
             action = agent.get_action(str(state))
@@ -56,4 +56,4 @@ if __name__ == "__main__":
 
             if done:
                 break
-        mmr.plot()
+        mmr.plots()
