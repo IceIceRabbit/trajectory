@@ -32,7 +32,8 @@ theta2 = math.pi/2
 action_space = [-math.pi/4,-math.pi/6,0,math.pi/6,math.pi/4] #set of possible action defined for [FOR TESTING]
 
 def distance_from_collision(A1,A2):
-    la.norem(A1 - A2)
+    la.norm(A1 - A2)
+    
 def col_reward(X1,X2,Y1,Y2): #old reward function
     reward = (1/(la.norm(np.array([X1,Y1]) - np.array([X2,Y2])))) * (math.pow((X1 - X2),2) + math.pow((X1 - X2),2) - math.pow((r1 + r2 + epsilon),2))
     return reward
