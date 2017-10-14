@@ -10,10 +10,9 @@ class QLearningAgent:
         self.learning_rate = 0.01
         self.discount_factor = 0.9
         self.epsilon = 0.1
-        self.q_table =  defaultdict(lambda: [0])
+        self.q_table =  defaultdict(lambda: [0.0,0.0,0.0,0.0,0.0])
 
     def learn(self, state, action, reward, next_state):
-        print(action)
         current_q = self.q_table[state][action]
         new_q = reward + self.discount_factor * max(self.q_table[next_state])
         self.q_table[state][action] += self.learning_rate * (new_q - current_q)
