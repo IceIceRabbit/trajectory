@@ -2,6 +2,10 @@ import numpy as np
 import random
 from collections import defaultdict
 import motion_model_reward as mmr
+import matplotlib.pyplot as plt
+import math
+import matplotlib.pyplot as plt
+import numpy.linalg as la
 
 
 class QLearningAgent:
@@ -43,17 +47,18 @@ class QLearningAgent:
 if __name__ == "__main__":
     agent = QLearningAgent(actions = list(range(5)))
 
-    for episode in range(1000):
-        state = [mmr.x1_in,mmr.y1_in]
-        timestep = 0
+    for episode in range(10):
+        mmr.reset()
+        state = [mmr.x1_in,mmr.y1_in]         #initialize state to env values.
+        timestep = 0                          #initialize iterator
+
         while True:
 
             action = agent.get_action(str(state))
             next_state,reward ,done,timestep = mmr.step(action,timestep)
-            agent.learn(str(state), action, reward, str(next_state)) #reward defined by the sum of heuristics
-
+            agent.learn(str(state), action, reward, str(next_state))              #reward defined by the sum of heuristics
             state = next_state
-
+            mmr.plots()
             if done:
+
                 break
-        mmr.plots()
